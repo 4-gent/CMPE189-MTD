@@ -49,7 +49,7 @@ CMPE189-MTD
 Open a separate terminal (SSH or otherwise) and run the following script:
 
 ```bash
-cd <project_repo>
+cd /path/to/project/repo/
 chmod +x init_mn.sh
 ./init_mn.sh
 ```
@@ -61,7 +61,7 @@ Leave this running—this is your SDN controller.
 In a separate terminal, run:
 
 ```bash
-cd ryu
+cd /path/to/project/repo/
 chmod +x init_topology.sh
 ./init_topology.sh
 ```
@@ -95,7 +95,7 @@ Ryu is learning MAC addresses
 Open another terminal (SSH) and run:
 
 ```bash
-cd attack
+cd /path/to/project/repo/attack
 python3 -m venv venv (only on the first start/bootup)
 source venv/bin/activate (everytime you want to run attack.py)
 pip3 install -r Requirements.txt (only once RIGHT after the previous source command)
