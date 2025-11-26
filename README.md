@@ -46,11 +46,12 @@ CMPE189-MTD
 ### How to Run
 #### 1. Start the Ryu Controller
 
-Open a terminal in the project root:
+Open a separate terminal (SSH or otherwise) and run the following script:
 
 ```bash
-cd ryu
-ryu-manager main.py
+cd <project_repo>
+chmod +x init_mn.sh
+./init_mn.sh
 ```
 
 Leave this running—this is your SDN controller.
