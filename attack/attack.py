@@ -85,10 +85,14 @@ class DosAttacker:
 
 if __name__ == "__main__":
     TARGET_HOST = "" #put target here
-    TARGET_PORT = 80
+    TARGET_PORT = 0
     THREAD_COUNT = 10
     DURATION = 30  #sec
     
+    TARGET_HOST = input("Input host IP > ")
+
+    TARGET_PORT = input("Input host port > ")
+
     try:
         attacker = DosAttacker(
             target=TARGET_HOST,
