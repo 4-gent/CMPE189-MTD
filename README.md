@@ -35,9 +35,15 @@ CMPE189-MTD
 │   │       * Hooks for flow rule modification
 │   │       * Console logging for debugging and observing MTD events
 │   │
-│   └── init_topology.sh
-│       - Shell script that launches Mininet with a simple topology.
-│       - Ensures OpenFlow13 and remote controller connection are used.
+│   │
+│   ├── init_topology.sh
+│   │    - Shell script that launches Mininet with a simple topology.
+│   │    - Ensures OpenFlow13 and remote controller connection are used.
+│   ├── init_controller.sh  
+│   │    - Shell script that launches Ryu Controller
+│   │    - Uses OpenFlow13
+│   └── init_metrics.sh
+│        - Metrics script to get status of Ryu Controller
 │
 └── README.md
     - Documentation and instructions on running the project.
@@ -50,7 +56,7 @@ Open a separate terminal (SSH or otherwise) and run the following script:
 
 ```bash
 cd /path/to/project/repo/
-chmod +x init_mn.sh
+chmod +x init_controller.sh
 ./init_mn.sh
 ```
 
@@ -95,7 +101,7 @@ Ryu is learning MAC addresses
 Open another terminal (SSH) and run:
 
 ```bash
-cd /path/to/project/repo/attack
+cd /path/to/project/repo/
 python3 -m venv venv (only on the first start/bootup)
 source venv/bin/activate (everytime you want to run attack.py)
 pip3 install -r Requirements.txt (only once RIGHT after the previous source command)
@@ -116,3 +122,11 @@ IP HOP: 10.0.0.10 -> 10.0.0.20
 ```
 
 Every hop simulates the network shifting underneath an attacker.
+
+You can also use the following script (in a separate SSH terminal) to provide metrics on the Ryu Controller
+
+```bash
+cd /path/to/project/repo/
+chmod +x init_metrics.sh
+./init_metrics.sh
+```
