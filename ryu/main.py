@@ -135,7 +135,7 @@ class MTDApp(app_manager.RyuApp):
         # -------------------------
         if ip4:
             src_ip = ip4.src
-            now = hub.get_time()
+            now = hub.time()
             last = self.last_packet_times.get(src_ip)
 
             if last is not None and (now - last) < self.packet_min_interval:
