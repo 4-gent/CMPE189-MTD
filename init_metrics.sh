@@ -2,6 +2,6 @@
 
 echo "[!] Starting Ryu Metrics"
 
-ryu-manager ./metrics/metrics.py
+python3 ./metrics/metrics.py
 
 sleep 3
